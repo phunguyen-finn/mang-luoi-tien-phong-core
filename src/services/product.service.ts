@@ -42,12 +42,6 @@ export const ProductService = {
             updatedAt: product.data().updatedAt.toDate(),
         } as any;
     },
-    updateProduct: (id: string, data: any) => {
-        return setDoc(doc(Db, "product", id), { ...data, updatedAt: Timestamp.now() }, { merge: true });
-    },
-    createProduct: async (data: any) => {
-        return addDoc(collection(Db, "product"), { ...data, createdAt: Timestamp.now(), updatedAt: Timestamp.now() });
-    },
     getCategories: async (): Promise<string[]> => {
         const q = query(collection(Db, "productCategory"),
             orderBy("createdAt", "desc"));
@@ -55,15 +49,6 @@ export const ProductService = {
         const categories = snapshot.docs.map(doc => doc.id);
         return categories;
     },
-    deleteProduct: async (id: string) => {
-        const product = await getDoc(doc(Db, "product", id));
-        if (!product.exists()) return;
-        const products = await getDocs(query(collection(Db, "product"), where("category", "==", product.data().category), limit(2)));
-        if (products.docs.length === 1) {
-            await deleteDoc(doc(Db, "productCategory", product.data().category));
-        }
-        await deleteDoc(doc(Db, "product", id));
-    }
 };
 
 export default ProductService;

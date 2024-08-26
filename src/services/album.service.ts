@@ -1,7 +1,7 @@
 import { collection, doc, getDoc, getDocs, orderBy, query, setDoc, addDoc, startAfter, limit, Timestamp, deleteDoc } from "firebase/firestore/lite";
 import { Db } from "./firebase";
 
-const MAX_ALBUMS = 9;
+const MAX_ALBUMS = 1;
 
 export interface Album {
     id: string;
@@ -35,15 +35,6 @@ export const AlbumService = {
             ...album.data(),
             createdAt: album.data().createdAt.toDate(),
         } as any;
-    },
-    updateAlbum: (id: string, data: any) => {
-        return setDoc(doc(Db, "album", id), { ...data }, { merge: true });
-    },
-    createAlbum: (data: any) => {
-        return addDoc(collection(Db, "album"), { ...data, createdAt: Timestamp.now() });
-    },
-    deleteAlbum: async (id: string) => {
-        await deleteDoc(doc(Db, "album", id));
     }
 };
 

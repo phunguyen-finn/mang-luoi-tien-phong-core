@@ -35,7 +35,7 @@ export default function AboutUs() {
                     </div>
                     <div style={{ width: '100%' }}>
                         <div style={{ position: 'relative', paddingBottom: '76.77%', paddingTop: 0, height: 0 }}>
-                            <iframe title="Bản đồ Mạng lưới Tiên Phong" width="1920px" height="1474px" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }} src="https://view.genially.com/6221882704295b001819819a" type="text/html" allowScriptAccess="always" allowFullScreen allowNetworking="all"></iframe>
+                            <iframe title="Bản đồ Mạng lưới Tiên Phong" width="1920px" height="1474px" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }} src="https://view.genially.com/6221882704295b001819819a" allowFullScreen></iframe>
                         </div>
                     </div>
                 </div>

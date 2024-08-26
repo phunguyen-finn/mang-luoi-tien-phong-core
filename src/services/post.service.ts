@@ -97,20 +97,6 @@ export const PostService = {
             updatedAt: post.data().updatedAt.toDate(),
             publishedAt: post.data().publishedAt ? post.data().publishedAt.toDate() : undefined
         } as any;
-    },
-    updatePost: (id: string, data: any) => {
-        if (data.status === POST_STATUS.PUBLISHED) data.publishedAt = Timestamp.now();
-        if (data.status === null) data.publishedAt = deleteField();
-        return setDoc(doc(Db, "post", id), { ...data, updatedAt: Timestamp.now() }, { merge: true });
-    },
-    createPost: (data: any) => {
-        if (!Auth.currentUser) return Promise.reject(new Error("Must be logged in to create resource"));
-        if (data.status === POST_STATUS.PUBLISHED) data.publishedAt = Timestamp.now();
-        return addDoc(collection(Db, "post"), { ...data, createdAt: Timestamp.now(), updatedAt: Timestamp.now(), createdBy: Auth.currentUser?.email });
-    },
-    deletePost: async (id: string) => {
-        await PostService.updatePost(id, { status: POST_STATUS.ARCHIVED });
-        await deleteDoc(doc(Db, "post", id));
     }
 };
 

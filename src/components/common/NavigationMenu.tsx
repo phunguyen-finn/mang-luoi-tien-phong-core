@@ -89,7 +89,7 @@ export default function NavigationMenu() {
     };
 
     return <div
-        className="flex flex-row w-screen h-16 lg:h-24 justify-between items-center px-6 sm:px-12 font-medium text-lg sticky top-0 left-0 max-w-[1920px] m-auto bg-white z-10">
+        className="flex flex-row w-screen h-16 lg:h-24 justify-between items-center px-6 sm:px-12 font-medium text-lg sticky top-0 left-0 max-w-[1920px] m-auto bg-white z-20">
         <>
             <Link href="/">
                 <Image
@@ -120,7 +120,7 @@ export default function NavigationMenu() {
         </>
 
         <>
-            <div className="flex flex-row justify-start w-1/2 items-center lg:hidden transition-all duration-1000 top-0 left-0 sticky z-10" >
+            <div className="flex flex-row justify-start w-1/2 items-center lg:hidden transition-all duration-1000 top-0 left-0 sticky z-20" >
                 <Link href="/">
                     <Image className="cursor-pointer block lg:hidden transition-all duration-1000" src="/logo.png" width={35} height={45} alt='Mạng lưới Tiên phong logo' />
                 </Link>

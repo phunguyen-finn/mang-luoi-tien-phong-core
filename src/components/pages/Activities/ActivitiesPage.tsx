@@ -10,7 +10,9 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import React from "react";
 import Link from "next/link";
 import { SmileOutlined } from "@ant-design/icons";
-import { Result, Select } from "antd";
+import { Button, Result, Select } from "antd";
+import AlbumService, { Album } from "@/services/album.service";
+import { Image as AntImage } from "antd";
 
 interface ActivityListsProps {
     initActivities: Activity[];
@@ -18,13 +20,21 @@ interface ActivityListsProps {
     initHasMore: boolean;
     categories: string[];
     featuredActivities: Activity[];
+    initAlbums: Album[];
+    initAlbumCursor?: Timestamp;
+    initAlbumHasMore: boolean;
 }
 
-export default function ActivitiesPage({ initActivities, initCursor, initHasMore, categories, featuredActivities }: ActivityListsProps) {
+export default function ActivitiesPage({ initActivities, initCursor, initHasMore, categories, featuredActivities, initAlbums, initAlbumCursor, initAlbumHasMore }: ActivityListsProps) {
     const [activities, setActivities] = useState<Activity[]>(initActivities);
     const [cursor, setCursor] = useState<Timestamp | undefined>(initCursor);
     const [hasMore, setHasMore] = useState<boolean>(initHasMore);
     const [category, setCategory] = useState<string>('all');
+    const [albums, setAlbums] = useState<Album[]>(initAlbums);
+    const [albumCursor, setAlbumCursor] = useState<Timestamp | undefined>(initAlbumCursor);
+    const [albumHasMore, setAlbumHasMore] = useState<boolean>(initAlbumHasMore);
+    const [previewImage, setPreviewImage] = useState<string>('');
+    const [previewOpen, setPreviewOpen] = useState<boolean>(false);
 
     const handleLoadMore = async () => {
         if (category === 'all') {
@@ -38,6 +48,18 @@ export default function ActivitiesPage({ initActivities, initCursor, initHasMore
             setCursor(nextCursor);
             setHasMore(nextHasMore);
         }
+    }
+
+    const handleLoadMoreAlbum = async () => {
+        const [nextAlbums, nextCursor, nextHasMore] = await AlbumService.getAlbums(albumCursor);
+        setAlbums([...albums, ...nextAlbums]);
+        setAlbumCursor(nextCursor);
+        setAlbumHasMore(nextHasMore);
+    }
+
+    const handlePreviewImage = (url: string) => {
+        setPreviewImage(url);
+        setPreviewOpen(true);
     }
 
     useEffect(() => {
@@ -124,6 +146,37 @@ export default function ActivitiesPage({ initActivities, initCursor, initHasMore
                 </div>
                 <Divider />
                 <div className="w-11/12 md:w-8/12 lg:w-[700px] no-scrollbar flex flex-col">
+                    <h1 className="text-xl font-medium lg:text-3xl">Album hoạt động</h1>
+                    {
+                        albums.map(album => (
+                            <React.Fragment key={album.name}>
+                                <div className="w-full">
+                                    <h3 className="my-3">{album.name}</h3>
+                                    <div className="grid grid-cols-3 gap-1">
+                                        {
+                                            album.images.slice(0, albums.length === 1 ? 6 : album.images.length).map(image => (
+                                                <div className="aspect-square relative z-10 cursor-pointer" onClick={() => handlePreviewImage(image)}>
+                                                    <div className="absolute w-full h-full hover:shadow-[inset_0_0_0_2px_white] z-10" />
+                                                    <Image
+                                                        src={image}
+                                                        alt={album.name}
+                                                        objectFit="cover"
+                                                        layout="fill"
+                                                        className="absolute z-0"
+                                                    />
+                                                </div>
+                                            ))
+                                        }
+                                    </div>
+                                </div>
+                                {album !== albums[albums.length - 1] && <Divider />}
+                            </React.Fragment>
+                        ))
+                    }
+                    <Button className="self-center mt-3" onClick={handleLoadMoreAlbum} disabled={!albumHasMore}>Xem thêm album</Button>
+                </div>
+                <Divider />
+                <div className="w-11/12 md:w-8/12 lg:w-[700px] no-scrollbar flex flex-col">
                     <Select
                         showSearch
                         placeholder="Chọn danh mục"
@@ -182,6 +235,19 @@ export default function ActivitiesPage({ initActivities, initCursor, initHasMore
                     }
                 </div>
             </div>
+            {previewImage && (
+                <AntImage
+                    wrapperStyle={{
+                        display: 'none',
+                    }}
+                    preview={{
+                        visible: previewOpen,
+                        onVisibleChange: (visible) => setPreviewOpen(visible),
+                        afterOpenChange: (visible) => !visible && setPreviewImage(''),
+                    }}
+                    src={previewImage}
+                />
+            )}
         </div>
     );
 }

@@ -131,8 +131,8 @@ export default function Home({ data, posts }: { data: Static, posts: Post[] }) {
                         {...settings}
                     >
                         {data.testimonials.map((testimonial) => (
-                            <div>
-                                <div key={testimonial.name} className="flex relative flex-col justify-center items-center rounded-lg relative">
+                            <div key={testimonial.name}>
+                                <div className="flex relative flex-col justify-center items-center rounded-lg relative">
                                     <div className="flex flex-col items-center">
                                         <div className="w-[75px] h-[75px] rounded-full relative mb-3">
                                             <Image

@@ -16,9 +16,6 @@ export const StaticService = {
     getStatic: async (): Promise<Static> => {
         const staticData = await getDoc(doc(Db, "static", "data"));
         return staticData.data() as Static;
-    },
-    updateStatic: (data: any) => {
-        return setDoc(doc(Db, "static", "data"), data, { merge: true });
     }
 }
 
