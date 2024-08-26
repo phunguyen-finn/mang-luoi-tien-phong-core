@@ -3,6 +3,15 @@ import ProductService from "@/services/product.service";
 import { Breadcrumb } from "antd";
 import Link from "next/link";
 
+export async function generateMetadata({ params, searchParams }: any, parent: any): Promise<any> {
+    const parentMetadata: any = await parent;
+
+    return {
+        ...parentMetadata,
+        title: 'Sản phẩm',
+    }
+}
+
 export default async function Product() {
     const [initProducts, initCursor, initHasMore] = await ProductService.getProducts();
     return <div

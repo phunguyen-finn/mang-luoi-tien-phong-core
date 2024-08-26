@@ -155,7 +155,7 @@ export default function ActivitiesPage({ initActivities, initCursor, initHasMore
                                     <div className="grid grid-cols-3 gap-1">
                                         {
                                             album.images.slice(0, albums.length === 1 ? 6 : album.images.length).map(image => (
-                                                <div className="aspect-square relative z-10 cursor-pointer" onClick={() => handlePreviewImage(image)}>
+                                                <div key={image} className="aspect-square relative z-10 cursor-pointer" onClick={() => handlePreviewImage(image)}>
                                                     <div className="absolute w-full h-full hover:shadow-[inset_0_0_0_2px_white] z-10" />
                                                     <Image
                                                         src={image}

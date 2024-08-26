@@ -12,6 +12,40 @@ const urlToCategoryMap: any = {
 }
 
 
+export async function generateMetadata(
+    { params }: any,
+    parent: any
+): Promise<any> {
+    if (Object.keys(urlToCategoryMap).includes(params.postId)) {
+        const parentMetadata: any = await parent;
+
+        return {
+            ...parentMetadata,
+            title: urlToCategoryMap[params.postId],
+        }
+    }
+
+    const post = await PostService.getPost(params.postId);
+    if (!post) {
+        return {
+            title: '404',
+        }
+    }
+
+    return {
+        title: post!.title,
+        description: post!.preview,
+        robots: 'index, follow',
+        openGraph: {
+            title: post!.title,
+            description: post!.preview,
+            images: [post!.thumbnailUrl],
+            type: 'website',
+            locale: 'vi'
+        },
+    }
+}
+
 export default async function Page({ params: { postId } }: { params: { postId: string } }) {
     if (Object.keys(urlToCategoryMap).includes(postId)) {
         const [initData, initCursor, initHasMore] = await PostService.getPublishedPostsByCategory(urlToCategoryMap[postId]);
