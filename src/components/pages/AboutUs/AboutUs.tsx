@@ -1,12 +1,22 @@
 'use client';
 
+import Image from "next/image";
+
 export default function AboutUs() {
     return (
         <div className='max-w-[1920px] m-auto'>
-            <div className="w-full flex flex-col items-center font-medium text-xl sm:text-3xl text-red-700 py-5 px-5 relative bg-white">
+            <div className="w-full flex flex-col items-center font-medium text-xl sm:text-3xl px-5 relative">
                 <div className="w-full md:max-w-[800px]">
-                    <h3>Về chúng tôi</h3>
+                    <h3 className="py-10 text-white">Về chúng tôi</h3>
                 </div>
+                <div className="w-full h-full absolute bg-red-700/[0.7] -z-[9]" />
+                <Image
+                    src="/hero.jpg"
+                    alt="Banner Về chúng tôi"
+                    layout="fill"
+                    objectFit="cover"
+                    className="absolute -z-10"
+                />
             </div>
             <div className="w-full flex flex-col items-center text-white py-5 px-5 relative bg-red-700">
                 <div className="w-full md:max-w-[800px]">

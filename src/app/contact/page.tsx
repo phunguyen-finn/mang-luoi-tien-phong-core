@@ -26,11 +26,11 @@ export default function Contact({ params: { locale } }: Readonly<{ params: { loc
 
     return <>
         <div
-            className='w-screen h-screen max-h-[1080px] overflow-y-auto justify-center items-center relative flex flex-row max-w-[1920px] m-auto py-5'>
-            <div className="w-11/12 xl:w-1/2 flex flex-col items-center xl:items-start mb-5">
-                <h1 className="text-white text-xl text-extrabold md:text-4xl mb-5 font-medium">Liên hệ</h1>
+            className='w-screen justify-center items-center relative flex flex-row max-w-[1920px] m-auto py-5'>
+            <div className="w-11/12 xl:w-1/2 min-h-screen flex flex-col items-center xl:items-start mb-5">
+                <h1 className="text-white text-xl font-medium md:text-4xl mb-5">Liên hệ</h1>
                 <div className="bg-white w-full p-5 flex flex-col">
-                    <h1 className="text-xl text-extrabold md:text-4xl mb-5">Gửi thư cho chúng tôi</h1>
+                    <h1 className="text-xl text-medium md:text-4xl mb-5">Gửi thư cho chúng tôi</h1>
                     {
                         status == 'success' && <Result
                             status="success"

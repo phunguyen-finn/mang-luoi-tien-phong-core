@@ -15,7 +15,9 @@ const urlToCategoryMap: any = {
 export default async function Page({ params: { postId } }: { params: { postId: string } }) {
     if (Object.keys(urlToCategoryMap).includes(postId)) {
         const [initData, initCursor, initHasMore] = await PostService.getPublishedPostsByCategory(urlToCategoryMap[postId]);
-        return <PostsPage initPosts={initData} initCursor={initCursor} initHasMore={initHasMore} category={urlToCategoryMap[postId]} />
+        const featuredPosts = await PostService.getPublishedFeaturedPosts();
+
+        return <PostsPage featuredPosts={featuredPosts} initPosts={initData} initCursor={initCursor} initHasMore={initHasMore} category={urlToCategoryMap[postId]} />
     }
 
     const post = await PostService.getPost(postId);

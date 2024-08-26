@@ -75,7 +75,6 @@ export const PostService = {
     getPublishedFeaturedPosts: async (): Promise<Post[]> => {
         const q = query(collection(Db, "post"),
             where("isFeatured", "==", true),
-            where("status", "==", POST_STATUS.PUBLISHED),
             orderBy("publishedAt", "desc"),
             limit(3));
         const snapshot = await getDocs(q);

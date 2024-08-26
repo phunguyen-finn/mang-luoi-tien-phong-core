@@ -5,7 +5,8 @@ import Dropdown from 'antd/es/dropdown/dropdown';
 import Menu from "antd/es/menu";
 import Image from "next/image";
 import Link from 'next/link';
-import React, { useState } from "react";
+import { usePathname, useSearchParams } from 'next/navigation';
+import React, { useEffect, useRef, useState } from "react";
 
 const items = [
     {
@@ -73,9 +74,16 @@ const Burger = (props: any) => {
 
 export default function NavigationMenu() {
     const [open, setOpen] = useState(false);
+    const pathname = usePathname();
+
+    useEffect(() => {
+        setOpen(false);
+    }, [pathname])
+
     const showDrawer = () => {
         setOpen(true);
     };
+
     const onClose = () => {
         setOpen(false);
     };
