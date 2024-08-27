@@ -7,6 +7,7 @@ import NavigationMenu from "@/components/common/NavigationMenu";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Footer from "@/components/common/Footer";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Fira_Sans({
   weight: ['400', '500', '600', '700'],
@@ -37,6 +38,7 @@ export default function RootLayout({
           <NavigationMenu />
           {children}
           <Footer />
+          <SpeedInsights />
         </body>
       </AntdRegistry>
     </html >
