@@ -9,6 +9,7 @@ const nextConfig = {
                 pathname: '/v0/b/mangluoitienphong-de378.appspot.com/o/**',
             },
         ],
+        unoptimized: true,
     },
 };
 
